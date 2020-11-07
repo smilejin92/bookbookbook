@@ -6,6 +6,7 @@ import Stack from '../../components/Stack'
 import Fieldset from '../../components/Form/Fieldset'
 import Select from '../../components/Form/Select'
 import Radio from '../../components/Form/Radio'
+import useSync from '../../hooks/useSync'
 
 function Filters() {
   const history = useHistory()
@@ -13,6 +14,8 @@ function Filters() {
   const handleCancel = () => {
     history.goBack()
   }
+
+  useSync()
 
   return (
     <form onSubmit={handleSubmit}>
