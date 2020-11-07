@@ -37,6 +37,7 @@ const booksSlice = createSlice({
     },
     getItemsFailure(state, action) {
       state.error = action.payload
+      state.status = Status.Failure
     }
   }
 })
@@ -56,6 +57,11 @@ export const fetchBooks = (search, startIndex = 0) => async (dispatch) => {
     dispatch(getItemsStart(startIndex))
     const response = await getBooks(search, startIndex)
     const data = await response.json()
+
+    if (!response.ok) {
+      throw data
+    }
+
     dispatch(getItemsSuccess({ ...data, startIndex }))
   } catch (error) {
     dispatch(getItemsFailure(error))
