@@ -44,6 +44,11 @@ function useForm() {
 
     const query = flow(omitBy(isEmpty))(state)
 
+    if (!query.q?.trim()) {
+      // 1. UI 업데이트 (ex. "검색어를 입력해주세요.")
+      return
+    }
+
     handleRouter(query)
   }
 
