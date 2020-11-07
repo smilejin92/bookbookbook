@@ -6,10 +6,18 @@ import { useLocation } from 'react-router-dom'
 function Pagination() {
   const dispatch = useDispatch()
   const location = useLocation()
-  const { status, startIndex } = useSelector(selectBooks)
-  const isLoading = status === Status.Loading
+  const { status, startIndex, totalItems, items } = useSelector(selectBooks)
 
-  return (
+  if (!items.length) {
+    return null
+  }
+
+  const isLoading = status === Status.Loading
+  const isEnd = startIndex >= totalItems
+
+  return isEnd ? (
+    <div>마지막 페이지입니다.</div>
+  ) : (
     <button
       className={styles.button}
       disabled={startIndex === 0 || isLoading}
